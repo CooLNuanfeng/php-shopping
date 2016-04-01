@@ -10,7 +10,7 @@ CREATE TABLE `imooc_admin` (
     `password` char(32) NOT NULL,
     `email` varchar(50) NOT NULL,
     PRIMARY KEY(`id`),
-    UNIQUE KEY `username`
+    UNIQUE KEY `username` (`username`)
 );
 
 -- 分类
@@ -55,4 +55,4 @@ CREATE TABLE `imooc_album` (
     `id` int unsigned AUTO_INCREMENT key,
     `pid` int unsigned NOT NULL,
     `albumPath` varchar(50) NOT NULL
-)
+);

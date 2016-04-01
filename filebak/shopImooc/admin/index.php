@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once '../include.php';
 checkLogined();
 ?>
@@ -19,15 +19,20 @@ checkLogined();
        <!--   <div class="link fl"><a href="#">慕课</a><span>&gt;&gt;</span><a href="#">商品管理</a><span>&gt;&gt;</span>商品修改</div>-->
         <div class="link fr">
             <b>欢迎您
-            <?php 
+            <?php
 				if(isset($_SESSION['adminName'])){
 					echo $_SESSION['adminName'];
 				}elseif(isset($_COOKIE['adminName'])){
 					echo $_COOKIE['adminName'];
 				}
             ?>
-            
-            </b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="icon icon_i">首页</a><span></span><a href="#" class="icon icon_j">前进</a><span></span><a href="#" class="icon icon_t">后退</a><span></span><a href="#" class="icon icon_n">刷新</a><span></span><a href="doAdminAction.php?act=logout" class="icon icon_e">退出</a>
+
+            </b>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" class="icon icon_i">首页</a><span></span>
+            <a href="#" class="icon icon_j">前进</a><span></span>
+            <a href="#" class="icon icon_t">后退</a><span></span>
+            <a href="#" class="icon icon_n">刷新</a><span></span>
+            <a href="doAdminAction.php?act=logout" class="icon icon_e">退出</a>
         </div>
     </div>
     <div class="content clearfix">
@@ -35,9 +40,9 @@ checkLogined();
             <!--右侧内容-->
             <div class="cont">
                 <div class="title">后台管理</div>
-      	 		<!-- 嵌套网页开始 -->         
+      	 		<!-- 嵌套网页开始 -->
                 <iframe src="main.php"  frameborder="0" name="mainFrame" width="100%" height="522"></iframe>
-                <!-- 嵌套网页结束 -->   
+                <!-- 嵌套网页结束 -->
             </div>
         </div>
         <!--左侧列表-->
@@ -82,7 +87,7 @@ checkLogined();
                             <dd><a href="listAdmin.php" target="mainFrame">管理员列表</a></dd>
                         </dl>
                     </li>
-                    
+
                          <li>
                         <h3><span onclick="show('menu6','change6')" id="change6">+</span>商品图片管理</h3>
                         <dl id="menu6" style="display:none;">
