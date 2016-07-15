@@ -4,7 +4,7 @@
  * @return resource
  */
 function connect(){
-	$link=mysql_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysql_errno().":".mysql_error());
+	$link = mysql_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysql_errno().":".mysql_error());
 	mysql_set_charset(DB_CHARSET);
 	mysql_select_db(DB_DBNAME) or die("指定数据库打开失败");
 	return $link;
@@ -16,14 +16,15 @@ function connect(){
  * @param array $array
  * @return number
  */
+ // insert into tablename (id,name...) values ('1','blue'...)
 function insert($table,$array){
-	$keys=join(",",array_keys($array));
-	$vals="'".join("','",array_values($array))."'";
-	$sql="insert {$table}($keys) values({$vals})";
+	$keys = join(",",array_keys($array));
+	$vals = "'".join("','",array_values($array))."'";
+	$sql = "insert into {$table}($keys) values({$vals})";
 	mysql_query($sql);
 	return mysql_insert_id();
 }
-//update imooc_admin set username='king' where id=1
+
 /**
  * 记录的更新操作
  * @param string $table
@@ -31,17 +32,18 @@ function insert($table,$array){
  * @param string $where
  * @return number
  */
+ //update imooc_admin set username='king' where id=1
 function update($table,$array,$where=null){
 	foreach($array as $key=>$val){
-		if($str==null){
-			$sep="";
+		if(@$str == null){
+			$sep = "";
 		}else{
-			$sep=",";
+			$sep = ",";
 		}
-		$str.=$sep.$key."='".$val."'";
+		@$str.= $sep.$key."='".$val."'";
 	}
-		$sql="update {$table} set {$str} ".($where==null?null:" where ".$where);
-		$result=mysql_query($sql);
+		$sql = "update {$table} set {$str} ".($where==null?null:" where ".$where);
+		$result = mysql_query($sql);
 		//var_dump($result);
 		//var_dump(mysql_affected_rows());exit;
 		if($result){
@@ -57,9 +59,10 @@ function update($table,$array,$where=null){
  * @param string $where
  * @return number
  */
+// delete form tablename where name='blue'
 function delete($table,$where=null){
-	$where=$where==null?null:" where ".$where;
-	$sql="delete from {$table} {$where}";
+	$where = $where==null?null:" where ".$where;
+	$sql = "delete from {$table} {$where}";
 	mysql_query($sql);
 	return mysql_affected_rows();
 }
@@ -70,9 +73,10 @@ function delete($table,$where=null){
  * @param string $result_type
  * @return multitype:
  */
+ //
 function fetchOne($sql,$result_type=MYSQL_ASSOC){
-	$result=mysql_query($sql);
-	$row=mysql_fetch_array($result,$result_type);
+	$result = mysql_query($sql);
+	$row = mysql_fetch_array($result,$result_type);
 	return $row;
 }
 
@@ -84,9 +88,9 @@ function fetchOne($sql,$result_type=MYSQL_ASSOC){
  * @return multitype:
  */
 function fetchAll($sql,$result_type=MYSQL_ASSOC){
-	$result=mysql_query($sql);
-	while(@$row=mysql_fetch_array($result,$result_type)){
-		$rows[]=$row;
+	$result = mysql_query($sql);
+	while(@$row = mysql_fetch_array($result,$result_type)){
+		$rows[] = $row;
 	}
 	return $rows;
 }
@@ -97,7 +101,7 @@ function fetchAll($sql,$result_type=MYSQL_ASSOC){
  * @return number
  */
 function getResultNum($sql){
-	$result=mysql_query($sql);
+	$result = mysql_query($sql);
 	return mysql_num_rows($result);
 }
 
