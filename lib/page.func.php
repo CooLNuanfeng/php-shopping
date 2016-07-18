@@ -2,7 +2,7 @@
 function showPage($page,$totalPage,$where=null,$sep="&nbsp;"){
 	$p ='';
 	$where=($where==null)?null:"&".$where;
-	$url = $_SERVER ['PHP_SELF'];
+	$url = $_SERVER['PHP_SELF'];
 	$index = ($page == 1) ? "首页" : "<a href='{$url}?page=1{$where}'>首页</a>";
 	$last = ($page == $totalPage) ? "尾页" : "<a href='{$url}?page={$totalPage}{$where}'>尾页</a>";
 	$prevPage=($page>=1)?$page-1:1;

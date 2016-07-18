@@ -2,6 +2,7 @@
     include_once '../include.php';
     $pageSize = 5;
     @$page = $_REQUEST['page']?(int)$_REQUEST['page']:1;
+    
     $rows = getAdminByPage($page,$pageSize);
     if(!$rows){
         echo '你还没有添加管理员<a href="addAdmin.php">添加管理员</a>';
