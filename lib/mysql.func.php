@@ -20,7 +20,8 @@ function connect(){
 function insert($table,$array){
 	$keys = join(",",array_keys($array));
 	$vals = "'".join("','",array_values($array))."'";
-	$sql = "insert into {$table}($keys) values({$vals})";
+	$sql = "insert into {$table} ($keys) values ({$vals})";
+	mysql_query("set names 'utf8'");
 	mysql_query($sql);
 	return mysql_insert_id();
 }
@@ -42,15 +43,15 @@ function update($table,$array,$where=null){
 		}
 		@$str.= $sep.$key."='".$val."'";
 	}
-		$sql = "update {$table} set {$str} ".($where==null?null:" where ".$where);
-		$result = mysql_query($sql);
-		//var_dump($result);
-		//var_dump(mysql_affected_rows());exit;
-		if($result){
-			return mysql_affected_rows();
-		}else{
-			return false;
-		}
+	$sql = "update {$table} set {$str} ".($where==null?null:" where ".$where);
+	$result = mysql_query($sql);
+	//var_dump($result);
+	//var_dump(mysql_affected_rows());exit;
+	if($result){
+		return mysql_affected_rows();
+	}else{
+		return false;
+	}
 }
 
 /**

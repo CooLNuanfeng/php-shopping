@@ -21,4 +21,15 @@ function buildRandomString($type=1,$length=4){
 }
 
 
+//生成唯一字符串
+function getUniName(){
+    return md5(uniqid(microtime(true),true));
+}
+
+
+//获取文件扩展名
+function getExt($filename){
+    return strtolower(end(explode(".",$filename)));
+}
+
  ?>

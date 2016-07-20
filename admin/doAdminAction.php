@@ -20,6 +20,20 @@
         $mes = deleteAdmin($id);
     }
 
+    if($act == 'addCate'){
+        $mes = addCate();
+    }
+
+    if($act == 'editCate'){
+        $id = $_REQUEST['id'];
+        $mes = editCate($id);
+    }
+
+    if($act=='delCate'){
+        $id = $_REQUEST['id'];
+        $mes = deleteCate($id);
+    }
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
