@@ -1,14 +1,14 @@
 <?php
 
 //多个文件 <input type="file" name="myfile[]" multiple="multiple"/>
-function uploadfiles($files){
-    $statusArr = array();
+function uploadfiles($files,$uploadfile='uploads'){
+    $returnInfos = array();
     $fileArray = reArrayFiles($files);
     foreach ($fileArray as $key => $value) {
-        $mes = uploadfile($value);
-        array_push($statusArr,$mes);
+        $returnInfo = uploadfile($value,$uploadfile);
+        array_push($returnInfos,$returnInfo);
     }
-    return $statusArr;
+    return $returnInfos;
 }
 
 
@@ -17,15 +17,17 @@ function uploadfile($fileInfo,$uploadfile='uploads',$allowExt=array('jpeg','jpg'
     //$allowExt = array('jpeg','jpg','gif','png','wbmp');
     //$maxSize = 1024*1024/2;   //最大500kb
     //$imgflag = true; //必须为真正的图片类型
-
+    $returnInfo = array();
     if($fileInfo['error'] == UPLOAD_ERR_OK){
         //生成唯一名称的文件
         $ext = getExt($fileInfo['name']);
-        $filename = getUniName($fileInfo['name']).'.'.$ext;
+        $filename = getUniName().'.'.$ext;
 
         if(!in_array($ext,$allowExt)){
             $mes = '文件类型不合法';
-            return $mes;
+            $returnInfo['status'] = false;
+            $returnInfo['message'] = $mes;
+            return $returnInfo;
             exit;
         }
 
@@ -33,13 +35,19 @@ function uploadfile($fileInfo,$uploadfile='uploads',$allowExt=array('jpeg','jpg'
             $imgInfo = getimagesize($fileInfo['tmp_name']);
             //var_dump($imgInfo);
             if(!$imgInfo){
-                exit('不是真正的图片类型');
+                $mes = '不是真正的图片类型';
+                $returnInfo['status'] = false;
+                $returnInfo['message'] = $mes;
+                return $returnInfo;
+                exit;
             }
         }
 
         if($fileInfo['size']>$maxSize){
             $mes = '文件过大';
-            return $mes;
+            $returnInfo['status'] = false;
+            $returnInfo['message'] = $mes;
+            return $returnInfo;
             exit;
         }
 
@@ -51,12 +59,23 @@ function uploadfile($fileInfo,$uploadfile='uploads',$allowExt=array('jpeg','jpg'
         $destination = $uploadfile.'/'.$filename;
         if(is_uploaded_file($fileInfo['tmp_name'])){
             if(move_uploaded_file($fileInfo['tmp_name'],$destination)){
+                $fileInfo['name'] = $filename;
                 $mes = '文件上传成功';
+                $returnInfo['status'] = true;
+                $returnInfo['message'] = $mes;
+                $returnInfo['info'] = $fileInfo;
+                return $returnInfo;
             }else{
                 $mes = '文件移动失败';
+                $returnInfo['status'] = false;
+                $returnInfo['message'] = $mes;
+                return $returnInfo;
             }
         }else{
             $mes = '文件不是通过 http post 方式上传上来的';
+            $returnInfo['status'] = false;
+            $returnInfo['message'] = $mes;
+            return $returnInfo;
         }
     }else{
         switch ($fileInfo['error']){
@@ -82,9 +101,11 @@ function uploadfile($fileInfo,$uploadfile='uploads',$allowExt=array('jpeg','jpg'
                 $mes = '由于PHP的扩展程序中断了上传文件';
                 break;
         }
+        $returnInfo['status'] = false;
+        $returnInfo['message'] = $mes;
+        return $returnInfo;
     }
 
-    return $mes;
 }
 //组装上传数据信息
 function reArrayFiles($file){

@@ -34,6 +34,9 @@
         $mes = deleteCate($id);
     }
 
+    if($act == 'addPro'){
+        $mes = addPro();
+    }
  ?>
 <!DOCTYPE html>
 <html lang="en">

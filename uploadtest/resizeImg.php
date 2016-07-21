@@ -1,7 +1,9 @@
 <?php
 
     require_once "../include.php";
-    //echo thumb('blog.png');
+    echo thumb('blog.png','uploads/image_50',50,50);
+    /*
+    //生成缩略图   参数  文件名  生成的目标目录  生成的目标图片宽高   是否保留原始图片 缩放比例
     function thumb($filename,$disfile=null,$des_w=null,$des_h=null,$isReservedSource=true,$scale=0.5){
         list($src_w,$src_h,$imagetype) = getimagesize($filename);
         $imagemine = image_type_to_mime_type($imagetype);
@@ -36,6 +38,7 @@
         return $disFilename;
     }
 
+    */
 
     /*
 

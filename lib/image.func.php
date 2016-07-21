@@ -2,6 +2,46 @@
 
 require_once "string.func.php";
 
+//生成缩略图   参数  文件名  生成的目标目录  生成的目标图片宽高   是否保留原始图片 缩放比例
+function thumb($filename,$disfile=null,$des_w=null,$des_h=null,$path='.',$isReservedSource=true,$scale=0.5){
+
+    list($src_w,$src_h,$imagetype) = getimagesize($path.'/'.$filename);
+    $imagemine = image_type_to_mime_type($imagetype);
+
+    $createFun = str_replace('/','createfrom',$imagemine);
+    $outFun = str_replace('/','',$imagemine);
+
+    //$scale = 0.5;
+    if(is_null($des_w) || is_null($des_h)){
+        $des_w = ceil($scale*$src_w);
+        $des_h = ceil($scale*$src_h);
+    }
+
+    $src_image = $createFun($path.'/'.$filename);
+
+    $des_image = imagecreatetruecolor($des_w,$des_h);
+    imagecopyresampled($des_image,$src_image,0,0,0,0,$des_w,$des_h,$src_w,$src_h);
+
+    if($disfile && !file_exists($disfile)){ //目标文件目录是否存在
+        mkdir($disfile);
+    }
+    //如果为指定目标目录，则随机生成文件名称
+    $disFilename = $disfile==null?getUniName().'.'.getExt($filename):$disfile.'/'.$filename;
+    $outFun($des_image,$disFilename);
+    imagedestroy($des_image);
+    imagedestroy($src_image);
+
+    if(!$isReservedSource){ //是否保留原文件
+        unlink($path.'/'.$filename);
+    }
+
+    return $disFilename;
+}
+
+
+
+
+//生成验证码
 //参数说明 $sess_name session通信的字段名 $type 验证码类型 有 1，2，3，三种  $length 验证码长度  $pixel,$line 是否有点线干扰
 function verifyImage($type=1,$length=4,$pixel=true,$line=true,$sess_name='verify'){
 

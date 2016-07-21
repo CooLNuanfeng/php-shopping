@@ -33,4 +33,12 @@ function deleteCate($id){
     return $mes;
 }
 
+
+//获取所有分类
+function getAllCate(){
+    $sql = 'select id,cName from imooc_cate';
+    $rows = fetchAll($sql);
+    return $rows;
+}
+
  ?>
