@@ -28,7 +28,7 @@ checkLogined();
             ?>
 
             </b>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#" class="icon icon_i">首页</a><span></span>
+            <a href="../mindex.php" class="icon icon_i">首页</a><span></span>
             <a href="#" class="icon icon_j">前进</a><span></span>
             <a href="#" class="icon icon_t">后退</a><span></span>
             <a href="#" class="icon icon_n">刷新</a><span></span>

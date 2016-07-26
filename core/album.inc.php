@@ -6,5 +6,12 @@
         return $id;
     }
 
+    //根据商品 id 获取一张图片
+    function getProImgById($id){
+        $sql = "select albumPath from imooc_album where pid={$id} limit 1";
+        $row = fetchOne($sql);
+        return $row;
+    }
+
 
  ?>

@@ -37,6 +37,16 @@
     if($act == 'addPro'){
         $mes = addPro();
     }
+
+    if($act=='editPro'){
+        $id = $_REQUEST['id'];
+        $mes = editPro($id);
+    }
+
+    if($act=='delPro'){
+        $id = $_REQUEST['id'];
+        $mes = delPro($id);
+    }
  ?>
 <!DOCTYPE html>
 <html lang="en">

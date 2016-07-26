@@ -25,12 +25,19 @@ function editCate($id){
 
 //删除分类
 function deleteCate($id){
-    if(delete('imooc_cate',"id=$id")){
-        $mes = '删除成功！<br> <a href="listCate.php">查看列表</a>';
+    //检查该分类下是否还有产品
+    $rows = checkProExist($id);
+    if(!$rows){
+        if(delete('imooc_cate',"id=$id")){
+            $mes = '删除成功！<br> <a href="listCate.php">查看列表</a>';
+        }else{
+            $mes = '删除失败！<br> <a href="listCate.php">重新修改</a>';
+        }
+        return $mes;
     }else{
-        $mes = '删除失败！<br> <a href="listCate.php">重新修改</a>';
+        alertMeg('该分类下有产品，请先删除产品','listPro.php');
     }
-    return $mes;
+
 }
 
 
@@ -40,5 +47,6 @@ function getAllCate(){
     $rows = fetchAll($sql);
     return $rows;
 }
+
 
  ?>
