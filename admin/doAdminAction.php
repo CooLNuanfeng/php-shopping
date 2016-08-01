@@ -47,6 +47,20 @@
         $id = $_REQUEST['id'];
         $mes = delPro($id);
     }
+
+    if($act == 'addUser'){
+        $mes = addUser();
+    }
+
+    if($act == 'editUser'){
+        $id = $_REQUEST['id'];
+        $mes = editUser($id);
+    }
+
+    if($act == 'delUser'){
+        $id = $_REQUEST['id'];
+        $mes = delUser($id);
+    }
  ?>
 <!DOCTYPE html>
 <html lang="en">

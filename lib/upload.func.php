@@ -32,7 +32,7 @@ function uploadfile($fileInfo,$uploadfile='uploads',$allowExt=array('jpeg','jpg'
         }
 
         if($imgflag){
-            $imgInfo = getimagesize($fileInfo['tmp_name']);
+            @$imgInfo = getimagesize($fileInfo['tmp_name']);
             //var_dump($imgInfo);
             if(!$imgInfo){
                 $mes = '不是真正的图片类型';

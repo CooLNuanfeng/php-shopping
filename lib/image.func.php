@@ -96,4 +96,26 @@ function verifyImage($type=1,$length=4,$pixel=true,$line=true,$sess_name='verify
     imagepng($image);
     imagedestroy($image);
 }
+
+
+//生成水印  $filename 要生成水印的图片  $path 生成新图片的路径 $text 水印文字  $font字体设置
+function waterText($filename,$path='.',$text="imooc.com",$font='kartika.ttf'){
+    $fileInfo = getimagesize($filename);
+    $mime = $fileInfo['mime'];
+
+    $createFun = str_replace('/','createfrom',$mime);
+    $outFun = str_replace('/','',$mime);
+
+    $image = $createFun($filename);
+
+    $color = imagecolorallocatealpha($image,255,0,0,50);
+    $fontfile = '../fonts/{$font}';
+    imagettftext($image,16,0,0,16,$color,$fontfile,$text);
+    header('content-type:'.$mime);
+    $outFun($image,$path.'/'.$filename);
+    imagedestroy($image);
+}
+
+
+
  ?>
